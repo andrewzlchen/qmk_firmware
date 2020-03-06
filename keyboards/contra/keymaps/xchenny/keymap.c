@@ -1,17 +1,11 @@
 #include QMK_KEYBOARD_H
 
+#include "layers.h"
+#include "macros.h"
+#include "strings.h"
+// #include "tapdances.h"
+
 extern keymap_config_t keymap_config;
-
-enum contra_layers {
-  _MACOS,
-  _QWERTY,
-  _NUMB,
-  _FUNC,
-};
-
-enum contra_keycodes {
-  M_PASS = SAFE_RANGE
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -19,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-------------------------------------------------------------------------------------------------.
    * | Tab / Numb  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  \          |
    * |-------------+------+------+------+------+-------------+------+------+------+------+-------------|
-   * | Esc / Ctrl  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '          |
+   * | Esc / CAPS  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '          |
    * |-------------+------+------+------+------+------|------+------+------+------+------+-------------|
    * | Shift / (   |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |   Sft / )   |
    * |-------------+------+------+------+------+------+------+------+------+------+------+-------------|
@@ -28,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_MACOS] = LAYOUT_ortho_4x12(
     LT(_NUMB, KC_TAB),   KC_Q,    KC_W,    KC_E,       KC_R,      KC_T,      KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-    LCTL_T(KC_ESC),      KC_A,    KC_S,    KC_D,       KC_F,      KC_G,      KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_ESC,              KC_A,    KC_S,    KC_D,       KC_F,      KC_G,      KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSPO,             KC_Z,    KC_X,    KC_C,       KC_V,      KC_B,      KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
     LCTL_T(KC_GRV),      KC_LALT, KC_LALT, MO(_FUNC),  KC_LGUI,   KC_BSPC,   KC_SPC, KC_ENT,  KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
   ),
@@ -53,13 +47,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Func
    * ,-----------------------------------------------------------------------------------.
-   * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+   * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
+   * |      |      |      |      |      |      |      |   -  |   =  |   [  |   ]  |  \   |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |Pg Up |Pg Dn |      |
+   * |      |      |      |      |      |      |      |ISO # |ISO / |Pg Up |Pg Dn |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      | Play |      | Prev | Vol- | Vol+ | Next |
+   * |      |      |      |      |      |      | Mute | Play | Prev | Vol- | Vol+ | Next |
    * `-----------------------------------------------------------------------------------'
    */
   [_FUNC] = LAYOUT_ortho_4x12(
@@ -75,7 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   KC_F4,   KC_F5,   KC_F6,  _______, _______, _______, KC_1,    KC_2,    KC_3,    _______, _______,
     _______,   KC_F1,   KC_F2,   KC_F3,  _______, KC_BSPC, _______, KC_0,    KC_0,    KC_DOT,  _______, M_PASS
   )
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
